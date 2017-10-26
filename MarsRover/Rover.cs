@@ -8,27 +8,37 @@ namespace MarsRover
 {
     public class Rover
     {
-        int currentXValue, currentYValue, currentDirection = 0;
-        public Rover(int currentx, int currenty, int direction)
+        Plateau plateau = null;
+        Coordinates currentCoordinates = null;
+        Coordinates coordinatesAfterMove = null;
+        string currentDirection = string.Empty;
+
+        public Rover(Plateau plateau, Coordinates currentCoordinate, string direction)
         {
-            currentXValue = currentx;
-            currentYValue = currenty;
-            currentDirection = direction;
+            this.plateau = plateau;
+            this.currentCoordinates = currentCoordinate;
+            this.currentDirection = direction;
         }
 
-        public void TurnLeft()
+        public string GetCurrentRoverPosition()
         {
-
+            return this.currentCoordinates.currentCoordinates() + " " + currentDirection;
         }
 
-        public void TurnRight()
+        public void RotateLeft()
         {
+            currentDirection = plateau.CheckDirection(currentDirection, "L");
+        }
 
+        public void RotateRight()
+        {
+            currentDirection = plateau.CheckDirection(currentDirection, "R");
         }
 
         public void Move()
         {
-
+            currentCoordinates = currentCoordinates.CoordinateToMove(currentCoordinates, currentDirection);
+            Console.WriteLine(GetCurrentRoverPosition());
         }
 
     }

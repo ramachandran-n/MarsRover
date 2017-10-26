@@ -8,35 +8,61 @@ namespace MarsRover
 {
     public class Plateau
     {
-        public int upperXValue { get; set; }
-        public int upperYValue { get; set; }
+        protected Coordinates upperCoordinates = new Coordinates(0, 0);
+        protected Coordinates lowerCoordinates = new Coordinates(0, 0);
 
-        int lowerXValue = 0;
-        int lowerYValue = 0;
-
-        public Plateau(int x, int y)
+        public Plateau(int upperXCooridnate, int upperYCoordinate)
         {
-            upperXValue = x;
-            upperYValue = y;
+            this.upperCoordinates= this.upperCoordinates.AddNewCoordinate(upperXCooridnate, upperXCooridnate);
         }
 
-        //This checkd
-        public bool CheckValueWithInRange
+        
+        public string CheckDirection(string currentDirection, string turnDirection)
         {
-            get
+            switch(currentDirection)
             {
-                if (upperXValue >= 0 && upperYValue >= 0 && lowerXValue >= 0 && lowerYValue >= 0)
-                    return true;
-                return false;
+                case "N":
+                    if(turnDirection.Equals("L"))
+                    {
+                        return "W";
+                    }
+                    else
+                    {
+                        return "E";
+                    }
+                    break;
+                case "E":
+                    if (turnDirection.Equals("L"))
+                    {
+                        return "N";
+                    }
+                    else
+                    {
+                        return "S";
+                    }
+                    break;
+                case "S":
+                    if (turnDirection.Equals("L"))
+                    {
+                        return "E";
+                    }
+                    else
+                    {
+                        return "W";
+                    }
+                    break;
+                case "W":
+                    if (turnDirection.Equals("L"))
+                    {
+                        return "S";
+                    }
+                    else
+                    {
+                        return "N";
+                    }
+                    break;
             }
+            return "N";
         }
-    }
-
-    public enum Directions
-    {
-        North,
-        South,
-        East,
-        West
     }
 }
